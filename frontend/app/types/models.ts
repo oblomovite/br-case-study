@@ -1,19 +1,18 @@
-
 export interface SimulationParams {
-  x0: number | String;
-  y0: number | String;
-  z0: number | String;
-  sigma: number | String;
-  rho: number | String;
-  beta: number | String;
-  delta_t: number | String;
+  x0: number | null;
+  y0: number | null;
+  z0: number | null;
+  sigma: number | null;
+  rho: number | null;
+  beta: number | null;
+  delta_t: number | null;
 }
 export interface SimulationResult{
-      x: number;
-      y: number;
-      z: number;
+      x: number | string;
+      y: number | string;
+      z: number | string;
 }
-
-export interface SimulationFormProps {
-  onResults: (data: SimulationParams) => void;
+export interface SimulationResponse {
+  results: SimulationResult[];
+  error?: string;
 }

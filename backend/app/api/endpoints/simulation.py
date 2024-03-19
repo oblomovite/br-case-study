@@ -1,10 +1,15 @@
-from fastapi import APIRouter
-from ...models.simulation_model import equationParameters
+from fastapi import APIRouter, HTTPException
+from typing import List
+from app.models.simulation_model import SimulationRequest, SimulationResponse
 from ...services.simulation_service import solve_equation
 
 router = APIRouter()
 
-# Define the endpoint for the simulation
-@router.post("/simulate/", response_model=list)
-def solver(params: equationParameters):
-    return solve_equation(params)
+# define a route for the simulation
+@router.post("/simulate", response_model=SimulationResponse)
+async def solver(params: SimulationRequest):
+    try:
+        results = solve_equation(params)
+        return results
+    except Exception as e: 
+        raise HTTPException(status_code=400, detail=str(e))
